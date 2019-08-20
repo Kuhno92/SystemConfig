@@ -30,7 +30,7 @@ brew install byobu
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 echo "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
 
-#Syntax Highlight
+#Syntax Highlight (REALY SLOW)
 echo "source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
 
 #fzf
@@ -44,3 +44,6 @@ echo "eval $(thefuck --alias)" >> ~/.zshrc
 #AutoJump
 brew install autojump
 echo " [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh" >> ~/.zshrc
+
+# bat -  https://github.com/sharkdp/bat
+
