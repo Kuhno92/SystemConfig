@@ -28,7 +28,12 @@ brew install byobu
 
 #Auto Suggestuib
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-echo "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
+echo "plugins=(zsh-autosuggestions $plugins)" >> ~/.zshrc
+
+#autoswitch_virtualenv
+git clone "https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git" "$ZSH_CUSTOM/plugins/autoswitch_virtualenv"
+echo "plugins=(autoswitch_virtualenv $plugins)" >> ~/.zshrc
+
 
 #Syntax Highlight (REALY SLOW)
 echo "source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
