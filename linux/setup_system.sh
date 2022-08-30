@@ -38,14 +38,47 @@ else
 	echo "Skipping $to_install"
 fi
 
+
 DIR="~/.oh-my-zsh"
-if [ ! -d "$DIR" ]; then
+if [ ! -d "`eval echo ${DIR//>}`" ]; then
   echo "Installing ${DIR}"
   sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 else
 	echo "Skipping ${DIR}"
 fi
 
+DIR="~/.oh-my-zsh/custom/themes/powerlevel10k"
+if [ ! -d "`eval echo ${DIR//>}`" ]; then
+  echo "Installing ${DIR}"
+  sh -c "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+else
+	echo "Skipping ${DIR}"
+fi
+
+DIR="~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+if [ ! -d "`eval echo ${DIR//>}`" ]; then
+  echo "Installing ${DIR}"
+  sh -c "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+else
+	echo "Skipping ${DIR}"
+fi
+
+DIR="~/.oh-my-zsh/custom/plugins/autoswitch_virtualenv"
+if [ ! -d "`eval echo ${DIR//>}`" ]; then
+  echo "Installing ${DIR}"
+  sh -c "git clone https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/autoswitch_virtualenv"
+else
+	echo "Skipping ${DIR}"
+fi
+
+DIR="~/.fzf.zsh.oh-my-zsh"
+if [ ! -f"`eval echo ${DIR//>}`" ]; then
+  echo "Installing ${DIR}"
+  sh -c "git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf"
+  sh -c "~/.fzf/install"
+else
+	echo "Skipping ${DIR}"
+fi
 
 to_install=fuck
 if ! command -v $to_install &> /dev/null
@@ -55,6 +88,15 @@ then
 	pip3 install thefuck --user
 	fuck
 	fuck
+else
+	echo "Skipping $to_install"
+fi
+
+to_install=bat
+if ! command -v $to_install &> /dev/null
+then
+    echo "Installing $to_install"
+    sudo apt install bat
 else
 	echo "Skipping $to_install"
 fi
