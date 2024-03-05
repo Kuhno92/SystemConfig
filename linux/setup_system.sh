@@ -92,13 +92,24 @@ else
 	echo "Skipping $to_install"
 fi
 
-to_install=bat
+to_install=batcat
 if ! command -v $to_install &> /dev/null
 then
     echo "Installing $to_install"
     sudo apt install bat
 else
 	echo "Skipping $to_install"
+fi
+
+to_install=j
+if ! command -v $to_install &> /dev/null 
+then
+  echo "Installing $to_install"
+  sh -c "git clone --depth 1 https://github.com/wting/autojump.git ~/.aj"
+  sh -c "python3 ~/.aj/install.py"
+  sh -c "rm -rf ~/.aj"
+else
+	echo "Skipping ${DIR}"
 fi
 
 to_install=echo
