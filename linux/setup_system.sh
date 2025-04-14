@@ -104,12 +104,7 @@ to_install=j
 if ! command -v $to_install &> /dev/null 
 then
   echo "Installing $to_install"
-  	sh -c "DIR=~/.aj"
-	sh -c "git clone --depth 1 https://github.com/wting/autojump.git $DIR"
-	sh -c "cd $DIR"
-	sh -c "$DIR/install.py"
-	sh -c "cd -"
-	sh -c "rm -rf $DIR"
+  	sh -c "sudo apt install autojump"
 else
 	echo "Skipping ${DIR}"
 fi
