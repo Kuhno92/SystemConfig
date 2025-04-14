@@ -83,10 +83,9 @@ fi
 to_install=fuck
 if ! command -v $to_install &> /dev/null
 then
-    echo "Installing $to_install"
+  echo "Installing $to_install"
     sudo apt install python3-dev python3-pip python3-setuptools
-	pip3 install thefuck --user
-	fuck
+	sudo pip install thefuck
 	fuck
 else
 	echo "Skipping $to_install"
@@ -105,9 +104,12 @@ to_install=j
 if ! command -v $to_install &> /dev/null 
 then
   echo "Installing $to_install"
-  sh -c "git clone --depth 1 https://github.com/wting/autojump.git ~/.aj"
-  sh -c "python3 ~/.aj/install.py"
-  sh -c "rm -rf ~/.aj"
+  	sh -c "DIR=~/.aj"
+	sh -c "git clone --depth 1 https://github.com/wting/autojump.git $DIR"
+	sh -c "cd $DIR"
+	sh -c "$DIR/install.py"
+	sh -c "cd -"
+	sh -c "rm -rf $DIR"
 else
 	echo "Skipping ${DIR}"
 fi
