@@ -1,11 +1,22 @@
 #!/bin/bash
 
+
+to_install=zsh
+if ! command -v $to_install &> /dev/null
+then
+    echo "Installing $to_install"
+    sudo apt install zsh
+    chsh -s $(which zsh)
+else
+	echo "Skipping (and switching) $to_install"
+fi
+
 to_install=subl
 if ! command -v $to_install &> /dev/null
 then
 	echo "Installing $to_install"
-	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc > /dev/null
+	echo -e 'Types: deb\nURIs: https://download.sublimetext.com/\nSuites: apt/stable/\nSigned-By: /etc/apt/keyrings/sublimehq-pub.asc' | sudo tee /etc/apt/sources.list.d/sublime-text.sources
 	sudo apt-get update
 	sudo apt-get install sublime-text
 else
@@ -26,18 +37,6 @@ then
 else
 	echo "Skipping $to_install"
 fi
-
-to_install=zsh
-if ! command -v $to_install &> /dev/null
-then
-    echo "Installing $to_install"
-    sudo apt install zsh
-    chsh -s $(which zsh)
-    zsh
-else
-	echo "Skipping $to_install"
-fi
-
 
 DIR="~/.oh-my-zsh"
 if [ ! -d "`eval echo ${DIR//>}`" ]; then
@@ -83,9 +82,10 @@ fi
 to_install=fuck
 if ! command -v $to_install &> /dev/null
 then
-  echo "Installing $to_install"
+    echo "Installing $to_install"
     sudo apt install python3-dev python3-pip python3-setuptools
-	sudo pip install thefuck
+	pip3 install https://github.com/nvbn/thefuck/archive/master.zip --user --break-system-packages  
+	echo -n '\nexport PATH=~/.local/bin:$PATH' >> ~/.zshrc
 	fuck
 else
 	echo "Skipping $to_install"
@@ -101,12 +101,12 @@ else
 fi
 
 to_install=j
-if ! command -v $to_install &> /dev/null 
+if zsh -c "command -v $to_install >/dev/null 2>&1"; 
 then
-  echo "Installing $to_install"
-  	sh -c "sudo apt install autojump"
+  	echo "Installing $to_install"
+  	zsh -c "sudo apt install autojump"
 else
-	echo "Skipping ${DIR}"
+	echo "Skipping ${to_install}"
 fi
 
 to_install=echo
